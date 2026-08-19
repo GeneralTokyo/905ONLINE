@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio | Northline Web Co.</title>
+<meta name="description" content="Selected website design and development work for GTA small businesses by Northline Web Co.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#07110f">
+<link rel="canonical" href="https://www.example.com/portfolio.html">
+<meta property="og:title" content="Portfolio | Northline Web Co.">
+<meta property="og:description" content="Selected website design and development work for GTA small businesses.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.example.com/portfolio.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#07110f;--bg2:#0b1815;--card:#0e201c;--line:rgba(220,255,240,.12);
+ --mint:#8ff0c3;--mint2:#c8ffe3;--cream:#f1f4ec;--muted:#91a69d;--orange:#ffb36b;
+ --max:1180px;--r:18px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse 65% 40% at 70% -5%,rgba(143,240,195,.12),transparent 65%),var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(7,17,15,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:10px}
+.mark{width:25px;height:25px;border:1px solid var(--mint);border-radius:7px;display:grid;place-items:center}
+.mark i{display:block;width:9px;height:9px;background:var(--mint);border-radius:50%}
+.links{display:flex;gap:28px;color:var(--muted);font-size:14px}.links a:hover{color:var(--cream)}.links a.current{color:var(--mint)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:10px;padding:12px 18px;font-weight:700;font-size:14px;transition:.2s}
+.primary{background:var(--mint);color:#06110d}.primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(143,240,195,.2)}
+.ghost{border-color:var(--line);background:rgba(255,255,255,.025)}.ghost:hover{border-color:rgba(143,240,195,.45)}
+.hero{padding:105px 0 55px}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:65px;align-items:center}
+.kicker{font:500 11px "DM Mono",monospace;color:var(--mint);letter-spacing:.12em;text-transform:uppercase}
+h1,h2,h3{line-height:1.08;letter-spacing:-.045em;margin:0}h1{font-size:clamp(46px,7vw,82px);margin-top:18px;max-width:850px}
+h1 em{font-style:normal;color:var(--mint)}.lead{font-size:18px;color:var(--muted);max-width:650px;margin:25px 0 32px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero-card{border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(143,240,195,.08),rgba(255,255,255,.02));padding:28px;box-shadow:0 30px 100px rgba(0,0,0,.2)}
+.hero-card .top{display:flex;justify-content:space-between;color:var(--muted);font:11px "DM Mono";text-transform:uppercase}
+.score{font-size:44px;font-weight:800;letter-spacing:-.05em;margin:25px 0 8px;color:var(--mint)}
+.meter{height:8px;background:#17312a;border-radius:20px;overflow:hidden}.meter span{display:block;width:88%;height:100%;background:var(--mint)}
+.mini-list{display:grid;gap:12px;margin-top:25px}.mini{display:flex;gap:10px;color:#c1d2ca;font-size:13px}.mini b{color:var(--mint)}
+.strip{border-block:1px solid var(--line);padding:20px 0;background:rgba(255,255,255,.018)}
+.strip-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font:11px "DM Mono";text-transform:uppercase}
+section{padding:100px 0}.head{max-width:700px;margin-bottom:45px}.head h2{font-size:clamp(34px,4.5vw,54px);margin-top:13px}.head p{color:var(--muted);margin-top:15px}
+.portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.project{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}.shot{height:220px;display:grid;place-items:end start;padding:18px;background:linear-gradient(135deg,#16352c,#081311 60%,#183e32)}.shot.alt{background:linear-gradient(135deg,#302218,#10100d 60%,#4a2d1c)}.shot.blue{background:linear-gradient(135deg,#172b38,#081012 60%,#21495b)}.shot.violet{background:linear-gradient(135deg,#241638,#0c0a12 60%,#3a2360)}.shot.rose{background:linear-gradient(135deg,#381622,#120a0c 60%,#5a2338)}.shot.slate{background:linear-gradient(135deg,#1c2833,#0a0e11 60%,#324a5b)}.fake{width:88%;height:86%;border:1px solid rgba(255,255,255,.18);border-radius:10px;background:rgba(0,0,0,.25);padding:12px;display:flex;flex-direction:column;justify-content:space-between}.fake b{font-size:14px}.fake span{font:9px "DM Mono";color:var(--mint)}.project-body{padding:19px}.project-body h3{font-size:19px}.project-body p{font-size:13px;color:var(--muted);margin:7px 0 15px}.tag{font:10px "DM Mono";color:var(--mint);text-transform:uppercase}
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:16px}.quote{border:1px solid var(--line);border-radius:var(--r);padding:28px;background:linear-gradient(135deg,rgba(143,240,195,.07),rgba(255,255,255,.02))}.quote p{font-size:21px;line-height:1.4;margin:0}.quote small{display:block;color:var(--muted);margin-top:20px}
+.cta-strip{background:linear-gradient(135deg,rgba(143,240,195,.09),transparent 55%);border-block:1px solid var(--line);padding:70px 0;text-align:center}
+.cta-strip h2{font-size:clamp(30px,4vw,46px);max-width:700px;margin:14px auto 30px}
+.cta-strip .cta-row{justify-content:center}
+footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:12px}.mobile{display:none}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.portfolio{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.wrap{width:min(var(--max),calc(100% - 30px))}.links,.nav-cta{display:none}.mobile{display:block}.hero{padding-top:70px}.portfolio,.proof{grid-template-columns:1fr}.hero-card{padding:22px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+
+<body>
+<header>
+<nav class="wrap">
+<a class="logo" href="index.html" aria-label="Northline Web Co. home"><span class="mark"><i></i></span>NORTHLINE WEB CO.</a>
+<div class="links">
+<a href="index.html">Home</a><a href="services.html">Services</a><a href="portfolio.html" class="current" aria-current="page">Portfolio</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+<a class="btn primary nav-cta" href="contact.html">Start a project →</a>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<div class="kicker">Portfolio</div>
+<h1>Real businesses. <em>Real websites.</em></h1>
+<p class="lead">A selection of designs and development work built for local businesses across the GTA — each one shaped around the customers it actually needs to convert.</p>
+<div class="cta-row"><a class="btn primary" href="contact.html">Start your project →</a><a class="btn ghost" href="services.html">See services</a></div>
+</div>
+<aside class="hero-card" aria-label="Portfolio snapshot">
+<div class="top"><span>Focus</span><span>GTA / ON</span></div>
+<div class="score">SELECTED.</div>
+<div class="meter"><span></span></div>
+<div class="mini-list">
+<div class="mini"><b>01</b> Barbers & salons</div>
+<div class="mini"><b>02</b> Hospitality & food</div>
+<div class="mini"><b>03</b> Renovation & trades</div>
+<div class="mini"><b>04</b> More categories added as the practice grows</div>
+</div>
+</aside>
+</div>
+</section>
+
+<div class="strip"><div class="wrap strip-inner"><span>Home services</span><span>Hospitality</span><span>Renovation</span><span>Retail</span><span>Professional services</span></div></div>
+
+<section id="portfolio">
+<div class="wrap">
+<div class="head"><div class="kicker">Selected work</div><h2>Projects built for different kinds of businesses.</h2><p>These are presentation examples for the portfolio. As our client base grows, we'll add more real-world examples.</p></div>
+<div class="portfolio">
+<a class="project" href="https://roberthouse.ca" target="_blank" rel="noopener"><div class="shot"><div class="fake"><span>YOGA / HAMILTON </span><b>Robert House Yoga Therapy</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Yoga Therapy</span><h3>Robert House Yoga Therapy</h3><p>Portfolio-first site designed around class photography, services, and rehabilltaiton .</p></div></a>
+<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot alt"><div class="fake"><span>COFFEE / HAMILTON</span><b> COMING SOON</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Hospitality</span><h3>COMING SOON</h3><p>Editorial-style site with menu, location details, atmosphere, and clear directions.</p></div></a>
+<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot blue"><div class="fake"><span>CONTRACTOR / GTA</span><b>COMING SOON</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Renovation</span><h3>COMING SOON</h3><p>Conversion-focused service pages, project gallery, trust signals, and quote flow.</p></div></a>
+<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot violet"><div class="fake"><span>SALON / OAKVILLE</span><b>COMING SOON</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Beauty & Wellness</span><h3>COMING SOON</h3><p>Booking-focused layout with service menu, pricing, and an easy path to reserve a slot.</p></div></a>
+<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot rose"><div class="fake"><span>BAKERY / BURLINGTON</span><b>COMING SOON</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Food & Retail</span><h3>COMING SOON</h3><p>Warm, product-led design built to showcase daily offerings and drive in-store visits.</p></div></a>
+<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot slate"><div class="fake"><span>CONSULTING / MISSISSAUGA</span><b>COMING SOON</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Professional Services</span><h3>COMING SOON</h3><p>Credibility-first site with clear service breakdowns and a straightforward consultation request.</p></div></a>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="head"><div class="kicker">Client feedback</div><h2>What it's like to work directly with one developer.</h2></div>
+<div class="proof">
+<div class="quote"><p>“I don't have a giant agency behind me. You get the person actually building your website, and I keep the process direct.”</p><small>— Positioning statement for Northline Web Co.</small></div>
+<div class="quote"><p>“I will build your site correctly, explain what I'm doing, and be honest about what a website can and can't do.”</p><small>— Our approach to SEO & marketing</small></div>
+</div>
+</div>
+</section>
+
+<section class="cta-strip">
+<div class="wrap">
+<div class="kicker">Like what you see?</div>
+<h2>Let's build something for your business.</h2>
+<div class="cta-row"><a class="btn primary" href="contact.html">Start a project →</a><a class="btn ghost" href="services.html">See services</a></div>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap foot"><span>© 2026 Northline Web Co.</span><span>Web design · Development · SEO foundations · GTA</span><a href="contact.html">Contact →</a></div></footer>
+</body>
+</html>

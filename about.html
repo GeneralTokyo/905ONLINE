@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About | Northline Web Co.</title>
+<meta name="description" content="Northline Web Co. is an independent web design practice building fast, modern websites for GTA small businesses. Learn who's behind it and why.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#07110f">
+<link rel="canonical" href="https://www.example.com/about.html">
+<meta property="og:title" content="About Northline Web Co.">
+<meta property="og:description" content="An independent web design practice building websites for GTA small businesses.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.example.com/about.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#07110f;--bg2:#0b1815;--card:#0e201c;--line:rgba(220,255,240,.12);
+ --mint:#8ff0c3;--mint2:#c8ffe3;--cream:#f1f4ec;--muted:#91a69d;--orange:#ffb36b;
+ --max:1180px;--r:18px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse 65% 40% at 70% -5%,rgba(143,240,195,.12),transparent 65%),var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(7,17,15,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:10px}
+.mark{width:25px;height:25px;border:1px solid var(--mint);border-radius:7px;display:grid;place-items:center}
+.mark i{display:block;width:9px;height:9px;background:var(--mint);border-radius:50%}
+.links{display:flex;gap:28px;color:var(--muted);font-size:14px}.links a:hover{color:var(--cream)}.links a.current{color:var(--mint)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:10px;padding:12px 18px;font-weight:700;font-size:14px;transition:.2s}
+.primary{background:var(--mint);color:#06110d}.primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(143,240,195,.2)}
+.ghost{border-color:var(--line);background:rgba(255,255,255,.025)}.ghost:hover{border-color:rgba(143,240,195,.45)}
+.hero{padding:105px 0 55px}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:65px;align-items:center}
+.kicker{font:500 11px "DM Mono",monospace;color:var(--mint);letter-spacing:.12em;text-transform:uppercase}
+h1,h2,h3{line-height:1.08;letter-spacing:-.045em;margin:0}h1{font-size:clamp(46px,7vw,82px);margin-top:18px;max-width:850px}
+h1 em{font-style:normal;color:var(--mint)}.lead{font-size:18px;color:var(--muted);max-width:650px;margin:25px 0 32px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero-card{border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(143,240,195,.08),rgba(255,255,255,.02));padding:28px;box-shadow:0 30px 100px rgba(0,0,0,.2)}
+.hero-card .top{display:flex;justify-content:space-between;color:var(--muted);font:11px "DM Mono";text-transform:uppercase}
+.score{font-size:44px;font-weight:800;letter-spacing:-.05em;margin:25px 0 8px;color:var(--mint)}
+.meter{height:8px;background:#17312a;border-radius:20px;overflow:hidden}.meter span{display:block;width:100%;height:100%;background:var(--mint)}
+.mini-list{display:grid;gap:12px;margin-top:25px}.mini{display:flex;gap:10px;color:#c1d2ca;font-size:13px}.mini b{color:var(--mint)}
+.strip{border-block:1px solid var(--line);padding:20px 0;background:rgba(255,255,255,.018)}
+.strip-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font:11px "DM Mono";text-transform:uppercase}
+section{padding:100px 0}.head{max-width:700px;margin-bottom:45px}.head h2{font-size:clamp(34px,4.5vw,54px);margin-top:13px}.head p{color:var(--muted);margin-top:15px}
+.problem{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}.statement{font-size:30px;line-height:1.3;font-weight:600}.statement strong{color:var(--mint)}
+.answers{display:grid;gap:14px}.answer{border:1px solid var(--line);border-radius:var(--r);padding:20px;background:rgba(255,255,255,.025)}.answer h3{font-size:18px}.answer p{color:var(--muted);font-size:14px;margin:9px 0 0}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{min-height:190px;border:1px solid var(--line);border-radius:var(--r);padding:23px;background:var(--card);display:flex;flex-direction:column;justify-content:space-between;transition:.2s}.card:hover{transform:translateY(-4px);border-color:rgba(143,240,195,.45)}.card.wide{grid-column:span 2}.card h3{font-size:19px}.card p{color:var(--muted);font-size:13.5px;margin:10px 0}.num{font:11px "DM Mono";color:var(--mint)}
+.process{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}.step{padding:27px;border-right:1px solid var(--line)}.step:last-child{border-right:0}.step .num{font-size:12px}.step h3{font-size:20px;margin:18px 0 9px}.step p{color:var(--muted);font-size:13px;margin:0}
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:16px}.quote{border:1px solid var(--line);border-radius:var(--r);padding:28px;background:linear-gradient(135deg,rgba(143,240,195,.07),rgba(255,255,255,.02))}.quote p{font-size:21px;line-height:1.4;margin:0}.quote small{display:block;color:var(--muted);margin-top:20px}
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}.faq details{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:rgba(255,255,255,.02)}summary{cursor:pointer;font-weight:700}.faq p{color:var(--muted);font-size:13px;margin:12px 0 0}
+.cta-strip{background:linear-gradient(135deg,rgba(143,240,195,.09),transparent 55%);border-block:1px solid var(--line);padding:70px 0;text-align:center}
+.cta-strip h2{font-size:clamp(30px,4vw,46px);max-width:700px;margin:14px auto 30px}
+.cta-strip .cta-row{justify-content:center}
+footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:12px}.mobile{display:none}
+@media(max-width:900px){.hero-grid,.problem{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr}.process{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step{border-bottom:1px solid var(--line)}}
+@media(max-width:650px){.wrap{width:min(var(--max),calc(100% - 30px))}.links,.nav-cta{display:none}.mobile{display:block}.hero{padding-top:70px}.bento,.proof,.faq,.process{grid-template-columns:1fr}.card.wide{grid-column:auto}.step{border-right:0!important}.hero-card{padding:22px}.statement{font-size:25px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+
+<body>
+<header>
+<nav class="wrap">
+<a class="logo" href="index.html" aria-label="Northline Web Co. home"><span class="mark"><i></i></span>NORTHLINE WEB CO.</a>
+<div class="links">
+<a href="index.html">Home</a><a href="services.html">Services</a><a href="portfolio.html">Portfolio</a><a href="about.html" class="current" aria-current="page">About</a><a href="contact.html">Contact</a>
+</div>
+<a class="btn primary nav-cta" href="contact.html">Start a project →</a>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<div class="kicker">About Northline</div>
+<h1>One person, one focus: <em>websites that earn trust.</em></h1>
+<p class="lead">Northline Web Co. is an independent web design practice built around a simple idea — local businesses deserve a website that looks as credible as the work they actually do.</p>
+<div class="cta-row"><a class="btn primary" href="contact.html">Start a project →</a><a class="btn ghost" href="portfolio.html">See the portfolio</a></div>
+</div>
+<aside class="hero-card" aria-label="About snapshot">
+<div class="top"><span>Practice</span><span>Hamilton, ON</span></div>
+<div class="score">INDEPENDENT.</div>
+<div class="meter"><span></span></div>
+<div class="mini-list">
+<div class="mini"><b>01</b> One point of contact, start to finish</div>
+<div class="mini"><b>02</b> Self-taught, project-tested development</div>
+<div class="mini"><b>03</b> Focused on GTA small businesses</div>
+<div class="mini"><b>04</b> Honest about what a website can do</div>
+</div>
+</aside>
+</div>
+</section>
+
+<div class="strip"><div class="wrap strip-inner"><span>Direct communication</span><span>No account managers</span><span>No outsourcing</span><span>Real ownership of the work</span><span>Built to last</span></div></div>
+
+<section>
+<div class="wrap problem">
+<div>
+<div class="kicker">The story</div>
+<p class="statement">This started as an interest in how things get built. <strong>It became a practice built on doing right by small businesses.</strong></p>
+</div>
+<div class="answers">
+<div class="answer"><h3>Where it started</h3><p>Years of self-directed learning in design and development, spent figuring out how the web actually works — not just how it looks.</p></div>
+<div class="answer"><h3>Why local businesses</h3><p>Local businesses are often sold on flashy templates or vague promises. They deserve a website built around how their customers actually decide.</p></div>
+<div class="answer"><h3>How it runs today</h3><p>Every project is handled directly — no hand-offs, no account managers, no outsourced design or development.</p></div>
+<div class="answer"><h3>Where it's headed</h3><p>Turning consistent, honest work into a long-term career built on client results, not just finished sites.</p></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="head"><div class="kicker">How I work</div><h2>A few principles that shape every project.</h2><p>These aren't marketing lines — they're the actual constraints every project runs through.</p></div>
+<div class="bento">
+<article class="card wide"><span class="num">01 / DIRECT</span><div><h3>You talk to the person building it</h3><p>No account managers, no middle layer. Questions get answered by whoever is actually writing the code.</p></div></article>
+<article class="card"><span class="num">02 / HONEST</span><div><h3>No overselling</h3><p>Clear, realistic expectations about timelines, cost, and what a website can and can't do for your business.</p></div></article>
+<article class="card"><span class="num">03 / FOCUSED</span><div><h3>Built around your customers</h3><p>Every layout decision starts with how someone actually chooses a business like yours.</p></div></article>
+<article class="card"><span class="num">04 / CRAFT</span><div><h3>Not template-first</h3><p>Sites are shaped around your business, not squeezed into a one-size-fits-all builder.</p></div></article>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="head"><div class="kicker">Approach to work</div><h2>Structured, but not rigid.</h2></div>
+<div class="process">
+<div class="step"><span class="num">01 — LISTEN</span><h3>Understand the business</h3><p>Before any design work, I want to understand your customers, your services, and what's actually holding your current site back.</p></div>
+<div class="step"><span class="num">02 — DESIGN</span><h3>Shape it around you</h3><p>Layout and messaging built specifically for your business — not a repurposed template.</p></div>
+<div class="step"><span class="num">03 — BUILD</span><h3>Develop with care</h3><p>Clean, responsive, accessible code — tested across devices before anything goes live.</p></div>
+<div class="step"><span class="num">04 — SUPPORT</span><h3>Stay involved</h3><p>Launch is the start, not the finish. I'm available for updates and improvements as your business grows.</p></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="head"><div class="kicker">Where this stands</div><h2>What clients should actually expect.</h2></div>
+<div class="proof">
+<div class="quote"><p>“I'm not part of a large agency, and I'm not pretending to be. What you get is direct access to the person building your website.”</p><small>— On working independently</small></div>
+<div class="quote"><p>“I'd rather tell you the truth about timelines and results than promise something I can't deliver.”</p><small>— On setting expectations</small></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="head"><div class="kicker">FAQ</div><h2>Questions people ask about working with an independent developer.</h2></div>
+<div class="faq">
+<details><summary>Are you part of an agency?</summary><p>No. Northline is an independent practice — one person handling design, development, and client communication.</p></details>
+<details><summary>Do you work with businesses outside the GTA?</summary><p>The primary focus is GTA and Ontario businesses, but remote projects can be discussed depending on scope.</p></details>
+<details><summary>What kind of businesses do you usually work with?</summary><p>Local service businesses — contractors, hospitality, home services, and similar — that need a credible, functional website.</p></details>
+<details><summary>Can I see examples of past work?</summary><p>Yes — the portfolio page has selected examples of the type of sites Northline builds.</p></details>
+</div>
+</div>
+</section>
+
+<section class="cta-strip">
+<div class="wrap">
+<div class="kicker">Ready when you are</div>
+<h2>Let's talk about what your website should be doing for you.</h2>
+<div class="cta-row"><a class="btn primary" href="contact.html">Start a project →</a><a class="btn ghost" href="services.html">See services</a></div>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap foot"><span>© 2026 Northline Web Co.</span><span>Web design · Development · SEO foundations · GTA</span><a href="contact.html">Contact →</a></div></footer>
+</body>
+</html>

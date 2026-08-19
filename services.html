@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Services | Northline Web Co.</title>
+<meta name="description" content="Custom website design, mobile-first development, SEO foundations, and ongoing website care for GTA small businesses.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#07110f">
+<link rel="canonical" href="https://www.example.com/services.html">
+<meta property="og:title" content="Services | Northline Web Co.">
+<meta property="og:description" content="Custom websites, SEO foundations, and ongoing care for GTA small businesses.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.example.com/services.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#07110f;--bg2:#0b1815;--card:#0e201c;--line:rgba(220,255,240,.12);
+ --mint:#8ff0c3;--mint2:#c8ffe3;--cream:#f1f4ec;--muted:#91a69d;--orange:#ffb36b;
+ --max:1180px;--r:18px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse 65% 40% at 70% -5%,rgba(143,240,195,.12),transparent 65%),var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(7,17,15,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:10px}
+.mark{width:25px;height:25px;border:1px solid var(--mint);border-radius:7px;display:grid;place-items:center}
+.mark i{display:block;width:9px;height:9px;background:var(--mint);border-radius:50%}
+.links{display:flex;gap:28px;color:var(--muted);font-size:14px}.links a:hover{color:var(--cream)}.links a.current{color:var(--mint)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:10px;padding:12px 18px;font-weight:700;font-size:14px;transition:.2s}
+.primary{background:var(--mint);color:#06110d}.primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(143,240,195,.2)}
+.ghost{border-color:var(--line);background:rgba(255,255,255,.025)}.ghost:hover{border-color:rgba(143,240,195,.45)}
+.hero{padding:105px 0 55px}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:65px;align-items:center}
+.kicker{font:500 11px "DM Mono",monospace;color:var(--mint);letter-spacing:.12em;text-transform:uppercase}
+h1,h2,h3{line-height:1.08;letter-spacing:-.045em;margin:0}h1{font-size:clamp(46px,7vw,82px);margin-top:18px;max-width:850px}
+h1 em{font-style:normal;color:var(--mint)}.lead{font-size:18px;color:var(--muted);max-width:650px;margin:25px 0 32px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero-card{border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(143,240,195,.08),rgba(255,255,255,.02));padding:28px;box-shadow:0 30px 100px rgba(0,0,0,.2)}
+.hero-card .top{display:flex;justify-content:space-between;color:var(--muted);font:11px "DM Mono";text-transform:uppercase}
+.score{font-size:44px;font-weight:800;letter-spacing:-.05em;margin:25px 0 8px;color:var(--mint)}
+.meter{height:8px;background:#17312a;border-radius:20px;overflow:hidden}.meter span{display:block;width:96%;height:100%;background:var(--mint)}
+.mini-list{display:grid;gap:12px;margin-top:25px}.mini{display:flex;gap:10px;color:#c1d2ca;font-size:13px}.mini b{color:var(--mint)}
+.strip{border-block:1px solid var(--line);padding:20px 0;background:rgba(255,255,255,.018)}
+.strip-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font:11px "DM Mono";text-transform:uppercase}
+section{padding:100px 0}.head{max-width:700px;margin-bottom:45px}.head h2{font-size:clamp(34px,4.5vw,54px);margin-top:13px}.head p{color:var(--muted);margin-top:15px}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{min-height:190px;border:1px solid var(--line);border-radius:var(--r);padding:23px;background:var(--card);display:flex;flex-direction:column;justify-content:space-between;transition:.2s}.card:hover{transform:translateY(-4px);border-color:rgba(143,240,195,.45)}.card.wide{grid-column:span 2}.card h3{font-size:19px}.card p{color:var(--muted);font-size:13.5px;margin:10px 0}.num{font:11px "DM Mono";color:var(--mint)}
+.process{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}.step{padding:27px;border-right:1px solid var(--line)}.step:last-child{border-right:0}.step .num{font-size:12px}.step h3{font-size:20px;margin:18px 0 9px}.step p{color:var(--muted);font-size:13px;margin:0}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tier{border:1px solid var(--line);border-radius:var(--r);padding:26px;background:var(--card);display:flex;flex-direction:column}.tier.feature{border-color:rgba(143,240,195,.5);background:linear-gradient(160deg,rgba(143,240,195,.09),var(--card))}.tier h3{font-size:21px}.tier .price{font:600 13px "DM Mono";color:var(--mint);margin:10px 0 18px}.tier ul{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:10px}.tier li{color:var(--muted);font-size:13.5px;padding-left:18px;position:relative}.tier li::before{content:"—";position:absolute;left:0;color:var(--mint)}.tier .btn{margin-top:auto}
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}.faq details{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:rgba(255,255,255,.02)}summary{cursor:pointer;font-weight:700}.faq p{color:var(--muted);font-size:13px;margin:12px 0 0}
+.cta-strip{background:linear-gradient(135deg,rgba(143,240,195,.09),transparent 55%);border-block:1px solid var(--line);padding:70px 0;text-align:center}
+.cta-strip h2{font-size:clamp(30px,4vw,46px);max-width:700px;margin:14px auto 30px}
+.cta-strip .cta-row{justify-content:center}
+footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:12px}.mobile{display:none}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr}.process{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step{border-bottom:1px solid var(--line)}.tiers{grid-template-columns:1fr}}
+@media(max-width:650px){.wrap{width:min(var(--max),calc(100% - 30px))}.links,.nav-cta{display:none}.mobile{display:block}.hero{padding-top:70px}.bento,.faq,.process{grid-template-columns:1fr}.card.wide{grid-column:auto}.step{border-right:0!important}.hero-card{padding:22px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+
+<body>
+<header>
+<nav class="wrap">
+<a class="logo" href="index.html" aria-label="Northline Web Co. home"><span class="mark"><i></i></span>NORTHLINE WEB CO.</a>
+<div class="links">
+<a href="index.html">Home</a><a href="services.html" class="current" aria-current="page">Services</a><a href="portfolio.html">Portfolio</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+<a class="btn primary nav-cta" href="contact.html">Start a project →</a>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<div class="kicker">Services</div>
+<h1>Everything <em> your website needs.</em></h1>
+<p class="lead">Start with a focused website for your business. Incorporate SEO, lead capture, and consistent care as your site actually needs it; with no added cost.</p>
+<div class="cta-row"><a class="btn primary" href="contact.html">Get a quote →</a><a class="btn ghost" href="portfolio.html">See the work</a></div>
+</div>
+<aside class="hero-card" aria-label="Services snapshot">
+<div class="top"><span>Coverage</span><span>GTA / ON</span></div>
+<div class="score">FULL SCOPE.</div>
+<div class="meter"><span></span></div>
+<div class="mini-list">
+<div class="mini"><b>01</b> Design through launch, handled directly</div>
+<div class="mini"><b>02</b> SEO built in from the first page</div>
+<div class="mini"><b>03</b> Mobile optimization on every project</div>
+<div class="mini"><b>04</b> Optional care plans for post-launch</div>
+</div>
+</aside>
+</div>
+</section>
+
+<div class="strip"><div class="wrap strip-inner"><span>Design</span><span>Development</span><span>SEO foundations</span><span>Lead capture</span><span>Consistent care</span></div></div>
+
+<section id="services">
+<div class="wrap">
+<div class="head"><div class="kicker">What's included</div><h2>Six pieces that make a website actually work for your business.</h2><p>Every project starts with the core build. The rest is added based on what your business needs.</p></div>
+<div class="bento">
+<article class="card wide"><span class="num">01 / CORE</span><div><h3>Custom Website Design</h3><p>Original layouts, clear messaging, responsive development, and a structure built around how customers would choose a business.</p></div></article>
+<article class="card"><span class="num">02 / VISIBILITY</span><div><h3>SEO Foundations</h3><p>Semantic HTML, metadata, structured data, internal linking, local signals, and search-friendly content structure.</p></div></article>
+<article class="card"><span class="num">03 / MOBILE</span><div><h3>Mobile-First Build</h3><p>Because the person looking for you may be standing in a driveway, on a boat, or at the dinner table.</p></div></article>
+<article class="card"><span class="num">04 / CONVERSION</span><div><h3>Lead & Quote Flows</h3><p>Prominent calls, forms, quote requests, booking links, and hassle-free communication from clients to owners.</p></div></article>
+<article class="card wide"><span class="num">05 / LAUNCH</span><div><h3>Hosting, Domain & Launch</h3><p>Assisting with the technical setup, deployment, domain connection, testing, redirects, and launch checklist.</p></div></article>
+<article class="card"><span class="num">06 / CARE</span><div><h3>Ongoing Maintenance</h3><p>Optional updates, content changes, technical upkeep, and improvements after launch.</p></div></article>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="head"><div class="kicker">Starting points</div><h2>A shape for the conversation — not a fixed price list.</h2><p>Every quote is scoped to your business. These give you a sense of what's typically included at each stage.</p></div>
+<div class="tiers">
+<div class="tier">
+<h3>Starter Site</h3>
+<div class="price">Single-purpose site</div>
+<ul>
+<li>Up to 3–4 pages</li>
+<li>Mobile-first responsive build</li>
+<li>Contact form & basic SEO setup</li>
+<li>Launch support included</li>
+</ul>
+<a class="btn ghost" href="contact.html">Ask about this →</a>
+</div>
+<div class="tier feature">
+<h3>Full Business Site</h3>
+<div class="price">Most common project</div>
+<ul>
+<li>5–8 pages, custom designed</li>
+<li>Full SEO foundations</li>
+<li>Lead & quote request flows</li>
+<li>Launch support + revisions included</li>
+</ul>
+<a class="btn primary" href="contact.html">Get a quote →</a>
+</div>
+<div class="tier">
+<h3>Ongoing Care</h3>
+<div class="price">Add-on after launch</div>
+<ul>
+<li>Content & image updates</li>
+<li>Technical upkeep & monitoring</li>
+<li>Small feature additions</li>
+<li>Month-to-month, cancel anytime</li>
+</ul>
+<a class="btn ghost" href="contact.html">Ask about this →</a>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="head"><div class="kicker">How it works</div><h2>No mystery. Just a clear path from idea to launch.</h2></div>
+<div class="process">
+<div class="step"><span class="num">01 — DISCOVER</span><h3>Understand the business</h3><p>We talk through your customers, services, goals, existing presence, and what you want the website to accomplish.</p></div>
+<div class="step"><span class="num">02 — DESIGN</span><h3>Shape the experience</h3><p>Layout, messaging, visual direction, calls to action, and the pages customers actually need.</p></div>
+<div class="step"><span class="num">03 — BUILD</span><h3>Develop & test</h3><p>Responsive development, SEO foundations, forms, performance checks, accessibility, and device testing.</p></div>
+<div class="step"><span class="num">04 — LAUNCH</span><h3>Go live & improve</h3><p>Launch the site, verify the important paths, then keep improving it as your business grows.</p></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="head"><div class="kicker">FAQ</div><h2>Questions people usually ask about services & pricing.</h2></div>
+<div class="faq">
+<details><summary>How much does a website cost?</summary><p>Every project is scoped around its pages, features, content, and technical requirements. You'll receive a clear quote before work begins.</p></details>
+<details><summary>How long does a project take?</summary><p>A straightforward business site can often be completed in a few weeks, depending on content, revisions, and functionality.</p></details>
+<details><summary>Do I need the maintenance plan?</summary><p>No. It's optional. Some clients prefer to request changes as needed; others prefer ongoing coverage. Either works.</p></details>
+<details><summary>Do you handle hosting and domains?</summary><p>Yes. We can guide you through purchasing a domain and hosting, or work with an existing setup. We want you to own your online presence, so we'll make sure you do it step by step to understand what you're working with.</p></details>
+<details><summary>Will my site work well on phones?</summary><p>Yes — every project is built mobile-first, rather than being adapted afterward.</p></details>
+<details><summary>Can you improve my existing website instead of a full rebuild?</summary><p>Depending on the current site, sometimes. We can discuss whether a redesign or a rebuild makes more sense for your situation.</p></details>
+</div>
+</div>
+</section>
+
+<section class="cta-strip">
+<div class="wrap">
+<div class="kicker">Ready to start</div>
+<h2>Tell me about your business and I'll scope the right project.</h2>
+<div class="cta-row"><a class="btn primary" href="contact.html">Get a quote →</a><a class="btn ghost" href="portfolio.html">See the portfolio</a></div>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap foot"><span>© 2026 Northline Web Co.</span><span>Web design · Development · SEO foundations · GTA based</span><a href="contact.html">Contact →</a></div></footer>
+</body>
+</html>
