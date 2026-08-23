@@ -6,7 +6,7 @@
 <title>905 Online Co. | Websites for GTA Businesses</title>
 <meta name="description" content="905 Online Co. designs fast, modern websites for GTA small businesses. Custom web design, SEO foundations, mobile-first development, and ongoing website care.">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="theme-color" content="#07110f">
+<meta name="theme-color" content="#130b21">
 <link rel="canonical" href="https://www.example.com/">
 <meta property="og:title" content="905 Online Co. | Websites That Help Local Businesses Get Chosen">
 <meta property="og:description" content="Custom websites for GTA businesses, built to look credible, load fast, and make contacting you easy.">
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
@@ -34,49 +34,123 @@
 
 <style>
 :root{
- --bg:#07110f;--bg2:#0b1815;--card:#0e201c;--line:rgba(220,255,240,.12);
- --mint:#8ff0c3;--mint2:#c8ffe3;--cream:#f1f4ec;--muted:#91a69d;--orange:#ffb36b;
+ --ink:#130b21;--ink2:#1e1236;--paper:#fbf9ff;--paper2:#f3eefb;--card:#ffffff;
+ --line:rgba(19,11,33,.12);--violet:#6d28d9;--violet-br:#8b5cf6;--violet-soft:#efe6fd;
+ --text:#150e24;--muted:#69607e;--rim:rgba(255,255,255,.10);
  --max:1180px;--r:18px;
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(ellipse 65% 40% at 70% -5%,rgba(143,240,195,.12),transparent 65%),var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;line-height:1.6}
+body{margin:0;background:
+ radial-gradient(1100px 480px at 12% -8%,rgba(139,92,246,.14),transparent 60%),
+ radial-gradient(900px 480px at 105% 0%,rgba(109,40,217,.10),transparent 55%),
+ var(--paper);color:var(--text);font-family:Manrope,system-ui,sans-serif;line-height:1.6;position:relative}
+body::before{content:"";position:fixed;top:-35%;left:-25%;width:150%;height:150%;z-index:-1;pointer-events:none;
+ background:conic-gradient(from 0deg at 50% 40%,rgba(139,92,246,.10),rgba(255,255,255,0) 22%,rgba(109,40,217,.09) 50%,rgba(255,255,255,0) 78%,rgba(139,92,246,.10));
+ filter:blur(70px);animation:auroraSpin 60s linear infinite}
+@keyframes auroraSpin{to{transform:rotate(360deg)}}
 a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}
 .wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
-header{position:sticky;top:0;z-index:20;background:rgba(7,17,15,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+header{position:sticky;top:0;z-index:20;background:rgba(19,11,33,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--rim)}
 nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:10px}
-.mark{width:25px;height:25px;border:1px solid var(--mint);border-radius:7px;display:grid;place-items:center}
-.mark i{display:block;width:9px;height:9px;background:var(--mint);border-radius:50%}
-.links{display:flex;gap:28px;color:var(--muted);font-size:14px}.links a:hover{color:var(--cream)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:10px;padding:12px 18px;font-weight:700;font-size:14px;transition:.2s}
-.primary{background:var(--mint);color:#06110d}.primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(143,240,195,.2)}
-.ghost{border-color:var(--line);background:rgba(255,255,255,.025)}.ghost:hover{border-color:rgba(143,240,195,.45)}
+.logo{font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:10px;color:#fff}
+.mark{width:25px;height:25px;border:1px solid var(--violet-br);border-radius:7px;display:grid;place-items:center}
+.mark i{display:block;width:9px;height:9px;background:var(--violet-br);border-radius:50%;animation:pulseDot 2.4s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.55}}
+.links{display:flex;gap:28px;color:#a99cc4;font-size:14px}.links a:hover{color:#fff}.links a.current{color:var(--violet-br)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:10px;padding:12px 18px;font-weight:700;font-size:14px;transition:.25s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden}
+.primary{background:var(--violet);color:#fff;box-shadow:0 8px 22px rgba(109,40,217,.28)}
+.primary::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-130%)}
+.primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(109,40,217,.4);background:var(--violet-br)}
+.primary:hover::after{transform:translateX(130%);transition:transform .6s ease}
+.ghost{border-color:var(--line);background:#fff}.ghost:hover{border-color:var(--violet);color:var(--violet)}
 .hero{padding:105px 0 55px}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:65px;align-items:center}
-.kicker{font:500 11px "DM Mono",monospace;color:var(--mint);letter-spacing:.12em;text-transform:uppercase}
-h1,h2,h3{line-height:1.08;letter-spacing:-.045em;margin:0}h1{font-size:clamp(46px,7vw,82px);margin-top:18px;max-width:850px}
-h1 em{font-style:normal;color:var(--mint)}.lead{font-size:18px;color:var(--muted);max-width:650px;margin:25px 0 32px}
+.kicker{font:600 11px "DM Mono",monospace;color:var(--violet);letter-spacing:.12em;text-transform:uppercase}
+h1,h2,h3{line-height:1.08;letter-spacing:-.045em;margin:0;color:var(--text);font-family:"Space Grotesk",Manrope,sans-serif}
+h1{font-size:clamp(46px,7vw,82px);margin-top:18px;max-width:850px}
+h1 em{font-style:normal;color:var(--violet)}.lead{font-size:18px;color:var(--muted);max-width:650px;margin:25px 0 32px}
 .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-.hero-card{border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(143,240,195,.08),rgba(255,255,255,.02));padding:28px;box-shadow:0 30px 100px rgba(0,0,0,.2)}
-.hero-card .top{display:flex;justify-content:space-between;color:var(--muted);font:11px "DM Mono";text-transform:uppercase}
-.score{font-size:64px;font-weight:800;letter-spacing:-.06em;margin:25px 0 8px;color:var(--mint)}
-.meter{height:8px;background:#17312a;border-radius:20px;overflow:hidden}.meter span{display:block;width:91%;height:100%;background:var(--mint)}
-.mini-list{display:grid;gap:12px;margin-top:25px}.mini{display:flex;gap:10px;color:#c1d2ca;font-size:13px}.mini b{color:var(--mint)}
-.strip{border-block:1px solid var(--line);padding:20px 0;background:rgba(255,255,255,.018)}
+.hero-grid>div:first-child>*{animation:riseIn .8s cubic-bezier(.16,.8,.3,1) both}
+.hero-grid .kicker{animation-delay:.04s}.hero-grid h1{animation-delay:.1s}.hero-grid .lead{animation-delay:.2s}.hero-grid .cta-row{animation-delay:.3s}
+.hero-card{animation:riseIn .9s cubic-bezier(.16,.8,.3,1) .18s both}
+@keyframes riseIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-card{border:1px solid var(--rim);border-radius:24px;background:linear-gradient(160deg,var(--ink),var(--ink2));padding:28px;box-shadow:0 30px 90px rgba(76,29,149,.24);color:#fff}
+.hero-card .top{display:flex;justify-content:space-between;color:#a99cc4;font:11px "DM Mono";text-transform:uppercase}
+.score{font-size:44px;font-weight:800;letter-spacing:-.05em;margin:25px 0 8px;color:var(--violet-br);font-family:"Space Grotesk",sans-serif}
+.meter{height:8px;background:rgba(255,255,255,.14);border-radius:20px;overflow:hidden}
+.meter span{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--violet-br));width:0;animation:fillMeter 1.3s .45s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes fillMeter{to{width:var(--w,100%)}}
+.mini-list{display:grid;gap:12px;margin-top:25px}.mini{display:flex;gap:10px;color:#cabfe2;font-size:13px}.mini b{color:var(--violet-br)}
+.strip{border-block:1px solid var(--line);padding:20px 0;background:var(--paper2)}
 .strip-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font:11px "DM Mono";text-transform:uppercase}
 section{padding:100px 0}.head{max-width:700px;margin-bottom:45px}.head h2{font-size:clamp(34px,4.5vw,54px);margin-top:13px}.head p{color:var(--muted);margin-top:15px}
-.problem{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}.statement{font-size:30px;line-height:1.3;font-weight:600}.statement strong{color:var(--mint)}
-.answers{display:grid;gap:14px}.answer{border:1px solid var(--line);border-radius:var(--r);padding:20px;background:rgba(255,255,255,.025)}.answer h3{font-size:18px}.answer p{color:var(--muted);font-size:14px;margin:9px 0 0}
-.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{min-height:190px;border:1px solid var(--line);border-radius:var(--r);padding:23px;background:var(--card);display:flex;flex-direction:column;justify-content:space-between;transition:.2s}.card:hover{transform:translateY(-4px);border-color:rgba(143,240,195,.45)}.card.wide{grid-column:span 2}.card h3{font-size:19px}.card p{color:var(--muted);font-size:13.5px;margin:10px 0}.num{font:11px "DM Mono";color:var(--mint)}
-.process{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}.step{padding:27px;border-right:1px solid var(--line)}.step:last-child{border-right:0}.step .num{font-size:12px}.step h3{font-size:20px;margin:18px 0 9px}.step p{color:var(--muted);font-size:13px;margin:0}
-.portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.project{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}.shot{height:220px;display:grid;place-items:end start;padding:18px;background:linear-gradient(135deg,#16352c,#081311 60%,#183e32)}.shot.alt{background:linear-gradient(135deg,#302218,#10100d 60%,#4a2d1c)}.shot.blue{background:linear-gradient(135deg,#172b38,#081012 60%,#21495b)}.fake{width:88%;height:86%;border:1px solid rgba(255,255,255,.18);border-radius:10px;background:rgba(0,0,0,.25);padding:12px;display:flex;flex-direction:column;justify-content:space-between}.fake b{font-size:14px}.fake span{font:9px "DM Mono";color:var(--mint)}.project-body{padding:19px}.project-body h3{font-size:19px}.project-body p{font-size:13px;color:var(--muted);margin:7px 0 15px}.tag{font:10px "DM Mono";color:var(--mint);text-transform:uppercase}
-.proof{display:grid;grid-template-columns:1fr 1fr;gap:16px}.quote{border:1px solid var(--line);border-radius:var(--r);padding:28px;background:linear-gradient(135deg,rgba(143,240,195,.07),rgba(255,255,255,.02))}.quote p{font-size:21px;line-height:1.4;margin:0}.quote small{display:block;color:var(--muted);margin-top:20px}
-.faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}.faq details{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:rgba(255,255,255,.02)}summary{cursor:pointer;font-weight:700}.faq p{color:var(--muted);font-size:13px;margin:12px 0 0}
-.contact{background:linear-gradient(135deg,rgba(143,240,195,.09),transparent 55%);border-block:1px solid var(--line)}.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px}.contact h2{font-size:clamp(40px,5vw,64px);margin:14px 0}.contact-copy{color:var(--muted);max-width:470px}.details{display:grid;gap:12px;margin-top:28px}.detail{padding:15px 17px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025)}.detail span{display:block;color:var(--muted);font:10px "DM Mono";text-transform:uppercase;margin-bottom:3px}
-form{display:grid;gap:14px;padding:25px;border:1px solid var(--line);border-radius:20px;background:rgba(4,12,10,.55)}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{font:11px "DM Mono";color:var(--muted);display:block;margin-bottom:6px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:9px;background:#091613;color:var(--cream);padding:13px;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--mint)}textarea{min-height:130px;resize:vertical}
-footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:12px}.mobile{display:none}
+.problem{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+.statement{font-size:30px;line-height:1.3;font-weight:600;font-family:"Space Grotesk",sans-serif}.statement strong{color:var(--violet)}
+.answers{display:grid;gap:14px}
+.answer{border:1px solid var(--line);border-radius:var(--r);padding:20px;background:var(--card);transition:.25s ease}
+.answer:hover{border-color:var(--violet-br);transform:translateX(4px);box-shadow:0 10px 28px rgba(109,40,217,.1)}
+.answer h3{font-size:18px}.answer p{color:var(--muted);font-size:14px;margin:9px 0 0}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.card{min-height:190px;border:1px solid var(--line);border-radius:var(--r);padding:23px;background:var(--card);display:flex;flex-direction:column;justify-content:space-between;transition:.3s cubic-bezier(.2,.8,.2,1)}
+.card:hover{transform:translateY(-6px);border-color:var(--violet-br);box-shadow:0 20px 42px rgba(109,40,217,.16)}
+.card.wide{grid-column:span 2}.card h3{font-size:19px}.card p{color:var(--muted);font-size:13.5px;margin:10px 0}.num{font:11px "DM Mono";color:var(--violet)}
+.process{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.step{padding:27px;border-right:1px solid var(--line);transition:.25s ease}
+.step:hover{background:var(--violet-soft)}
+.step:last-child{border-right:0}.step .num{font-size:12px;color:var(--violet);font-family:"DM Mono"}.step h3{font-size:20px;margin:18px 0 9px}.step p{color:var(--muted);font-size:13px;margin:0}
+.portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.project{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card);transition:.3s ease}
+.project:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(109,40,217,.18)}
+.shot{height:220px;display:grid;place-items:end start;padding:18px;background:linear-gradient(135deg,#3c1f7c,#160b2a 60%,#5c2fa0)}
+.shot.alt{background:linear-gradient(135deg,#2c1650,#120a22 60%,#4c2496)}
+.shot.blue{background:linear-gradient(135deg,#221244,#0d0818 60%,#382078)}
+.shot.violet{background:linear-gradient(135deg,#4a2394,#170b2e 60%,#8144e0)}
+.shot.rose{background:linear-gradient(135deg,#3c1240,#150714 60%,#6e2374)}
+.shot.slate{background:linear-gradient(135deg,#1e1638,#0c0a16 60%,#332a5c)}
+.fake{width:88%;height:86%;border:1px solid rgba(255,255,255,.18);border-radius:10px;background:rgba(0,0,0,.28);padding:12px;display:flex;flex-direction:column;justify-content:space-between}
+.fake b{font-size:14px;color:#fff}.fake span{font:9px "DM Mono";color:var(--violet-br)}
+.project-body{padding:19px}.project-body h3{font-size:19px}.project-body p{font-size:13px;color:var(--muted);margin:7px 0 15px}.tag{font:10px "DM Mono";color:var(--violet);text-transform:uppercase}
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.quote{border:1px solid var(--rim);border-radius:var(--r);padding:28px;background:linear-gradient(150deg,var(--ink),var(--ink2));color:#fff;position:relative;overflow:hidden}
+.quote::before{content:"\201C";position:absolute;top:-18px;right:16px;font-size:96px;color:rgba(255,255,255,.07);font-family:Georgia,serif}
+.quote p{font-size:21px;line-height:1.4;margin:0;position:relative}.quote small{display:block;color:#a99cc4;margin-top:20px;position:relative}
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.faq details{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--card);transition:.2s ease}
+.faq details[open]{border-color:var(--violet-br)}
+summary{cursor:pointer;font-weight:700;list-style:none}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--violet);transition:.25s ease}
+details[open] summary::after{content:"\2013"}
+.faq p{color:var(--muted);font-size:13px;margin:12px 0 0}
+.contact{background:linear-gradient(150deg,var(--ink),var(--ink2));border-block:1px solid var(--line);color:#fff;position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 340px at 82% 0%,rgba(139,92,246,.22),transparent 65%)}
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;position:relative}
+.contact h2{font-size:clamp(40px,5vw,64px);margin:14px 0;color:#fff}
+.contact .kicker{color:var(--violet-br)}
+.contact-copy{color:#c7bce2;max-width:470px}
+.details{display:grid;gap:12px;margin-top:28px}
+.detail{padding:15px 17px;border:1px solid var(--rim);border-radius:12px;background:rgba(255,255,255,.06)}
+.detail span{display:block;color:#a99cc4;font:10px "DM Mono";text-transform:uppercase;margin-bottom:3px}
+.detail a:hover{color:var(--violet-br)}
+form{display:grid;gap:14px;padding:25px;border:1px solid var(--rim);border-radius:20px;background:#fff}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{font:11px "DM Mono";color:var(--muted);display:block;margin-bottom:6px}
+input,textarea,select{width:100%;border:1px solid var(--line);border-radius:9px;background:var(--paper2);color:var(--text);padding:13px;outline:none;transition:.2s ease}
+input:focus,textarea:focus,select:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(109,40,217,.15)}
+textarea{min-height:130px;resize:vertical}
+footer{padding:35px 0;background:var(--ink);color:#a99cc4}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px}
+.foot a:hover{color:#fff}
+.mobile{display:none}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
 @media(max-width:900px){.hero-grid,.problem,.contact-grid{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr}.portfolio{grid-template-columns:1fr 1fr}.process{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step{border-bottom:1px solid var(--line)}}
 @media(max-width:650px){.wrap{width:min(var(--max),calc(100% - 30px))}.links,.nav-cta{display:none}.mobile{display:block}.hero{padding-top:70px}.bento,.portfolio,.proof,.faq,.process{grid-template-columns:1fr}.card.wide{grid-column:auto}.step{border-right:0!important}.row{grid-template-columns:1fr}.hero-card{padding:22px}.statement{font-size:25px}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+body::before{display:none}
+.hero-grid>div:first-child>*,.hero-card{opacity:1;transform:none}
+.meter span{width:var(--w,100%)!important}
+.reveal{opacity:1!important;transform:none!important}}
+.meter span{--w:91%}
+@media print{.reveal{opacity:1!important;transform:none!important}}
 </style>
 </head>
 
@@ -97,7 +171,7 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 <div>
 <div class="kicker">Independent web design · GTA / Ontario</div>
 <h1>Your business is good. <em>Your website should prove it.</em></h1>
-<p class="lead">905 Online builds modern, mobile-first websites for local businesses that need to look credible, get found, and make it ridiculously easy for customers to get in touch.</p>
+<p class="lead">905 Online builds modern, mobile-first websites for local businesses that need to look professional, be discovered, and make it super easy for potential clients to get in touch.</p>
 <div class="cta-row"><a class="btn primary" href="contact.html">Talk about your website →</a><a class="btn ghost" href="portfolio.html">See the portfolio</a></div>
 </div>
 <aside class="hero-card" aria-label="Website health preview">
@@ -105,7 +179,7 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 <div class="score">READY.</div>
 <div class="meter"><span></span></div>
 <div class="mini-list">
-<div class="mini"><b>01</b> Clear offer above the fold</div>
+<div class="mini"><b>01</b> Clear communication throughout development</div>
 <div class="mini"><b>02</b> Fast, responsive experience</div>
 <div class="mini"><b>03</b> Strong contact path on every device</div>
 <div class="mini"><b>04</b> SEO foundations built into the site</div>
@@ -120,13 +194,13 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 <div class="wrap problem">
 <div>
 <div class="kicker">The point</div>
-<p class="statement">You shouldn't have to explain why your company is worth calling. <strong>Your website should do that before the phone rings.</strong></p>
+<p class="statement">You shouldn't have to explain why your company is worth choosing, <strong>Your website should do that before the phone rings.</strong></p>
 </div>
 <div class="answers">
-<div class="answer"><h3>Who are you?</h3><p>An independent web developer building custom business websites and working directly with the people who own them.</p></div>
-<div class="answer"><h3>Why work with you?</h3><p>No layers of account managers. You deal directly with the person designing and building the site.</p></div>
-<div class="answer"><h3>Why are you doing this?</h3><p>To turn years of interest in technology and self-taught development into useful work for real local businesses—and build something worth a long-term career.</p></div>
-<div class="answer"><h3>What do I actually get?</h3><p>A site designed around your business, your customers, your services, your proof, and the action you want visitors to take.</p></div>
+<div class="answer"><h3>Who are you?</h3><p>I am an independent web developer building custom business websites and working directly with the people who own them.</p></div>
+<div class="answer"><h3>Why work with you?</h3><p>Working with an independent developer, you deal directly with the person designing and building the site. Not some agency that doesnt communicate effectively.</p></div>
+<div class="answer"><h3>Why are you doing this?</h3><p>I'm turning years of interest in technology and self-taught development into useful work for real local businesses, while also building something sustainable as a career.</p></div>
+<div class="answer"><h3>What do I actually get?</h3><p>You get a website designed around your business, your customers, your services, your proof, and the things you want people to take away from your business..</p></div>
 </div>
 </div>
 </section>
@@ -135,12 +209,12 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 <div class="wrap">
 <div class="head"><div class="kicker">Services</div><h2>Everything your website needs to pull its weight.</h2><p>Start with a focused business site. Add the technical pieces when your business actually needs them.</p></div>
 <div class="bento">
-<article class="card wide"><span class="num">01 / CORE</span><div><h3>Custom Website Design</h3><p>Original layouts, clear messaging, responsive development, and a structure built around how customers choose a business.</p></div></article>
+<article class="card wide"><span class="num">01 / CORE</span><div><h3>Custom Website Design</h3><p>Unique layouts, clear messaging, active and responsive development, with a structure built around how a customer would choose your business.</p></div></article>
 <article class="card"><span class="num">02 / VISIBILITY</span><div><h3>SEO Foundations</h3><p>Semantic HTML, metadata, structured data, internal linking, local signals, and search-friendly content structure.</p></div></article>
 <article class="card"><span class="num">03 / MOBILE</span><div><h3>Mobile-First Build</h3><p>Because the person looking for you may be standing in a driveway, parking lot, or living room with their phone.</p></div></article>
-<article class="card"><span class="num">04 / CONVERSION</span><div><h3>Lead & Quote Flows</h3><p>Prominent calls, forms, quote requests, booking links, and friction-free contact paths.</p></div></article>
+<article class="card"><span class="num">04 / CONVERSION</span><div><h3>Lead & Quote Flows</h3><p>Prominent calls, forms, quote requests, booking links, and hassle-free paths of communication.</p></div></article>
 <article class="card wide"><span class="num">05 / LAUNCH</span><div><h3>Hosting, Domain & Launch</h3><p>Help with the technical setup, deployment, domain connection, testing, redirects, and launch checklist.</p></div></article>
-<article class="card"><span class="num">06 / CARE</span><div><h3>Ongoing Maintenance</h3><p>Optional updates, content changes, technical upkeep, and improvements after launch.</p></div></article>
+<article class="card"><span class="num">06 / CARE</span><div><h3>Maintenance</h3><p>Optional updates, content changes, technical upkeep, and improvements after launch.</p></div></article>
 </div>
 </div>
 </section>
@@ -159,11 +233,11 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 
 <section id="portfolio">
 <div class="wrap">
-<div class="head"><div class="kicker">Portfolio</div><h2>Selected work, built for different kinds of businesses.</h2><p>These are presentation examples for the portfolio. Replace them with your real client projects as your library grows.</p></div>
+<div class="head"><div class="kicker">Portfolio</div><h2>Selected work, built for different kinds of businesses.</h2><p>These are presentation examples for the portfolio. We'll update this as our client base grows.</p></div>
 <div class="portfolio">
-<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot"><div class="fake"><span>LANDSCAPING / GTA</span><b>Evergreen Outdoor</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Home Services</span><h3>Evergreen Outdoor</h3><p>Portfolio-first site designed around project photography, services, and quote requests.</p></div></a>
-<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot alt"><div class="fake"><span>COFFEE / HAMILTON</span><b>North & Oak</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Hospitality</span><h3>North & Oak Coffee</h3><p>Editorial-style site with menu, location details, atmosphere, and clear directions.</p></div></a>
-<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot blue"><div class="fake"><span>CONTRACTOR / GTA</span><b>Forge Renovations</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Renovation</span><h3>Forge Renovations</h3><p>Conversion-focused service pages, project gallery, trust signals, and quote flow.</p></div></a>
+<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot"><div class="fake"><span>BUSINESS / GTA</span><b>COMING SOON</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Coming soon</span><h3>COMING SOON</h3><p>Portfolio-first site designed around project photography, services, and quote requests.</p></div></a>
+<a class="project" href="https://roberthouse.ca" target="_blank" rel="noopener"><div class="shot alt"><div class="fake"><span>YOGA THERAPY / HAMILTON</span><b>Robert House Yoga</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Health & Wellness</span><h3>Robert House Yoga</h3><p>Basic Website with class booking, location details, biography, and clear directions.</p></div></a>
+<a class="project" href="https://example.com" target="_blank" rel="noopener"><div class="shot blue"><div class="fake"><span>BUSINESS / GTA</span><b>COMING SOON</b><span>VIEW PROJECT ↗</span></div></div><div class="project-body"><span class="tag">Coming soon</span><h3>COMING SOON</h3><p>Conversion-focused service pages, project gallery, trust signals, and quote flow.</p></div></a>
 </div>
 </div>
 </section>
@@ -172,8 +246,8 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 <div class="wrap">
 <div class="head"><div class="kicker">What clients should know</div><h2>Professional doesn't mean pretending to be something you're not.</h2></div>
 <div class="proof">
-<div class="quote"><p>“I don't have a giant agency behind me. You get the person actually building your website, and I keep the process direct.”</p><small>— Positioning statement for Northline Web Co.</small></div>
-<div class="quote"><p>“I won't promise #1 on Google. I will build the site correctly, explain what I'm doing, and be honest about what a website can and can't do.”</p><small>— Our approach to SEO & marketing</small></div>
+<div class="quote"><p>“I don't have a giant agency behind me. You get the person actually building your website, and I keep the process direct。”</p><small>— Positioning statement for 905 Online</small></div>
+<div class="quote"><p>“I can't promise #1 on Google. I will build the site correctly, explain what I'm doing, and be honest about what a website can and can't do。”</p><small>— Our approach to SEO & marketing</small></div>
 </div>
 </div>
 </section>
@@ -184,10 +258,10 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 <div class="faq">
 <details><summary>How much does a website cost?</summary><p>Every project is scoped around its pages, features, content, and technical requirements. You'll receive a clear quote before work begins.</p></details>
 <details><summary>How long does it take?</summary><p>A straightforward business site can often be completed in a few weeks, depending on content, revisions, and functionality.</p></details>
-<details><summary>Do you have formal credentials?</summary><p>Northline is an independent, self-taught web development practice. The work is the proof: you'll see the design and development before deciding.</p></details>
+<details><summary>Do you have formal credentials?</summary><p>905 Online is an independent, self-taught web development practice. The work is the proof: you'll see the design and development before deciding.</p></details>
 <details><summary>Will my site work on phones?</summary><p>Yes. Responsive, mobile-first behavior is part of the build rather than an optional extra.</p></details>
 <details><summary>Will you get me to #1 on Google?</summary><p>No honest developer can guarantee that. The site can be built with strong technical and local SEO foundations, but rankings depend on competition, authority, content, relevance, and ongoing work.</p></details>
-<details><summary>Do I have to pay every month?</summary><p>The website development can be a project fee. Domain, hosting, and optional maintenance are separate costs and will be explained upfront.</p></details>
+<details><summary>Do I have to pay every month?</summary><p>The website development can be a project fee. Domain, hosting, and optional maintenance are separate costs, and will be explained upfront.</p></details>
 <details><summary>What do you need from me?</summary><p>Business information, services, photos, branding, contact details, and any examples or competitors you like. I'll guide you through the rest.</p></details>
 <details><summary>Can I request changes?</summary><p>Yes. Revisions are included according to the project scope. Ongoing changes can be handled separately or through a maintenance plan.</p></details>
 </div>
@@ -201,13 +275,13 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 <h2>Let's make your business easier to choose.</h2>
 <p class="contact-copy">Tell me what you do, what your current website is missing, or simply say “I need a website.” We'll figure out the right next step without the agency sales theatre.</p>
 <div class="details">
-<div class="detail"><span>Email</span><a href="mailto:hello@example.com">hello@example.com</a></div>
-<div class="detail"><span>Phone</span><a href="tel:+19055550147">(905) 555-0147</a></div>
+<div class="detail"><span>Email</span><a href="mailto:aries.house07@gmail.com">aries.house07@gmail.com</a></div>
+<div class="detail"><span>Phone</span><a href="tel:+2896593559">(289) 659-3559</a></div>
 <div class="detail"><span>Service area</span>Hamilton · Burlington · Oakville · Mississauga · Toronto</div>
 <div class="detail"><span>Office</span>100 King Street West, Hamilton, ON L8P 1A2</div>
 </div>
 </div>
-<form action="mailto:hello@example.com" method="post" enctype="text/plain">
+<form action="mailto:aries.house07@gmail.com" method="post" enctype="text/plain">
 <div class="row"><div><label for="name">NAME</label><input id="name" name="name" autocomplete="name" placeholder="Jordan Ellis" required></div><div><label for="email">EMAIL</label><input id="email" name="email" type="email" autocomplete="email" placeholder="jordan@business.com" required></div></div>
 <div><label for="business">BUSINESS</label><input id="business" name="business" autocomplete="organization" placeholder="Your Business Name"></div>
 <div><label for="type">WHAT DO YOU NEED?</label><select id="type" name="project"><option>New website</option><option>Website redesign</option><option>Portfolio / gallery site</option><option>SEO foundations</option><option>Ongoing website care</option><option>Not sure yet</option></select></div>
@@ -218,6 +292,14 @@ footer{padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;
 </section>
 </main>
 
-<footer><div class="wrap foot"><span>© 2026 Northline Web Co.</span><span>Web design · Development · SEO foundations · GTA</span><a href="contact.html">Contact →</a></div></footer>
+<footer><div class="wrap foot"><span>© 2026 905 Online</span><span>Web design · Development · SEO foundations · GTA</span><a href="contact.html">Contact →</a></div></footer>
+<script>
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
+  document.querySelectorAll('section, .card, .answer, .step, .project, .quote, .tier, .detail').forEach(function(el){el.classList.add('reveal')});
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  setTimeout(function(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){el.classList.add('in')})},4000);
+}
+</script>
 </body>
 </html>
