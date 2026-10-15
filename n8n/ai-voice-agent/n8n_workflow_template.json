@@ -1,0 +1,864 @@
+{
+  "name": "AI Voice Agent - Twilio IVR + Vapi + Human Transfer (Template)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## 1. Inbound call + keypad (DTMF)\nTwilio calls **Twilio Inbound Call** when the phone rings. n8n answers instantly with TwiML that reads the menu and gathers one digit. Twilio posts the digit to **Twilio DTMF Receiver** (relative URL `twilio-dtmf`).",
+        "height": 400,
+        "width": 1600,
+        "color": 7
+      },
+      "id": "909ec0eb-216a-4c66-a7b2-d5c8b5ab8b95",
+      "name": "Note: Phase 1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 2 + 3. Department routing + Vapi AI session\nThe digit picks a department profile (prompt, greeting, voice, human number). **Trigger Vapi Inbound Call** creates a transient Vapi assistant for *this* call (`phoneCallProviderBypassEnabled`) and returns Vapi's `<Connect><Stream>` TwiML to Twilio, so the live call is bridged into Vapi (GPT-4o-mini, Deepgram, ElevenLabs). If Vapi fails, the caller is sent straight to a human.",
+        "height": 640,
+        "width": 1600,
+        "color": 4
+      },
+      "id": "0f847534-ca95-493c-a797-d8fef421220b",
+      "name": "Note: Phase 2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 4. Human escalation (warm transfer)\nWhen the AI calls the `transfer_to_human` tool, Vapi posts to **Vapi Tool Escalation Endpoint**. n8n acknowledges Vapi, waits for the hold message to finish, then uses the Twilio REST API to redirect the live call to a `<Dial>`. **Transfer Whisper Endpoint** briefs the human with the reason before the caller is connected.",
+        "height": 760,
+        "width": 1600,
+        "color": 6
+      },
+      "id": "3d1b55a6-a8ca-4ea6-a3b0-2004c993fc15",
+      "name": "Note: Phase 4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "twilio-inbound-call",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "79af3642-79ac-43ea-ae9e-8338e4c9e95e",
+      "name": "Twilio Inbound Call",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "43153520-19b4-4de2-aa04-7ac3c84b3901"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response>\n  <Gather input=\"dtmf\" numDigits=\"1\" timeout=\"8\" action=\"twilio-dtmf\" method=\"POST\">\n    <Say voice=\"Polly.Joanna-Neural\">Welcome. Press 1 for Support, or press 2 for Sales.</Say>\n  </Gather>\n  <Say voice=\"Polly.Joanna-Neural\">We did not receive any input. Goodbye.</Say>\n</Response>",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/xml; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "8cadc5b2-c3da-4059-a53c-64285d3bf653",
+      "name": "TwiML Gather Input",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        260,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "twilio-dtmf",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "515d92b7-1193-4976-a870-59c0f16e2937",
+      "name": "Twilio DTMF Receiver",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        480
+      ],
+      "webhookId": "9234ae5d-4b7e-4a7d-ae29-a45450743b3a"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "775f8305-bd05-4933-ab2b-1ffc46b6e05d",
+                    "leftValue": "={{ String($json.body.Digits ?? '').trim() }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Support"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2b5dae83-59fc-4fc7-ac67-134e265bdd23",
+                    "leftValue": "={{ String($json.body.Digits ?? '').trim() }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Sales"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "Invalid Input"
+        }
+      },
+      "id": "0e479735-582a-47d5-a46e-357d8badaa76",
+      "name": "Route Department",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        260,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7d41071f-df67-44c3-a566-908abe05b856",
+              "name": "department",
+              "value": "support",
+              "type": "string"
+            },
+            {
+              "id": "b3c09dda-00f6-426e-abeb-f9c695a44857",
+              "name": "assistantName",
+              "value": "Support Agent (n8n template)",
+              "type": "string"
+            },
+            {
+              "id": "2cf396c7-6c8c-49f1-a80c-88c97a13d2fb",
+              "name": "firstMessage",
+              "value": "=Hi, thanks for calling {{ $env.COMPANY_NAME || 'Acme Co' }} support, this is Sarah, your virtual assistant. How can I help you today?",
+              "type": "string"
+            },
+            {
+              "id": "72f0f281-2d50-41ac-abae-497a42e0fa6a",
+              "name": "systemPrompt",
+              "value": "=You are Sarah, a friendly and efficient phone support agent for {{ $env.COMPANY_NAME || 'Acme Co' }}.\nYou are talking to a caller on a live phone call, so:\n- Keep every reply to one or two short sentences. Never use lists, markdown, emojis or URLs.\n- Ask one question at a time and confirm important details back to the caller.\n- If the caller interrupts you, stop, listen, and answer what they just said. Do not repeat yourself.\n\nYour job: understand the caller's issue, get their name and a callback number, and help with basic questions about account access, billing, order status and service problems. Never invent policies, prices or account details. If you do not know, say so.\n\nEscalation rules. Call the transfer_to_human tool immediately when ANY of these happen:\n1. The caller asks for a human, a real person, an agent, a representative or a manager.\n2. The caller is angry or frustrated, or has repeated the same problem twice.\n3. The request involves refunds, cancellations, legal or safety issues, or anything you cannot resolve.\nUse department \"support\" for these. If the caller wants to buy, upgrade or get a quote, call transfer_to_human with department \"sales\" instead.\nAlways pass a one-sentence reason that summarises the caller's issue so the human agent is briefed.\nDo not announce the transfer yourself. The system tells the caller they are being connected.",
+              "type": "string"
+            },
+            {
+              "id": "71c8ffdb-8e21-4485-ab77-fb3746b0effd",
+              "name": "voiceId",
+              "value": "sarah",
+              "type": "string"
+            },
+            {
+              "id": "b72cdc16-6bd8-47bf-ad67-3b9a0b12a44a",
+              "name": "transferMessage",
+              "value": "Absolutely. Please hold for a moment while I connect you with a member of our team.",
+              "type": "string"
+            },
+            {
+              "id": "2127fed6-9667-4780-a6d2-baf185eafd0d",
+              "name": "transferNumber",
+              "value": "={{ $env.HUMAN_SUPPORT_NUMBER }}",
+              "type": "string"
+            },
+            {
+              "id": "92bde780-a0b2-4982-af40-8aab8088e308",
+              "name": "callSid",
+              "value": "={{ $json.body.CallSid }}",
+              "type": "string"
+            },
+            {
+              "id": "d525255a-4401-4ec7-ae66-691a06d870d1",
+              "name": "accountSid",
+              "value": "={{ $json.body.AccountSid }}",
+              "type": "string"
+            },
+            {
+              "id": "614713c2-a93f-4dd6-a67c-8dfc9b52ecdd",
+              "name": "callerNumber",
+              "value": "={{ $json.body.From }}",
+              "type": "string"
+            },
+            {
+              "id": "de6c8ca3-ffeb-4afc-aa59-d6865d2ab753",
+              "name": "twilioNumber",
+              "value": "={{ $json.body.To }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f2f2a8f3-749e-474d-a4ca-f7967afc34c6",
+      "name": "Configure Agent Parameters (Support)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "90fd230a-2c49-4337-a229-63fcfe9adc61",
+              "name": "department",
+              "value": "sales",
+              "type": "string"
+            },
+            {
+              "id": "a83fd1ca-30df-49c7-a50b-6f2e22abe463",
+              "name": "assistantName",
+              "value": "Sales Agent (n8n template)",
+              "type": "string"
+            },
+            {
+              "id": "9dfebc50-4a0d-4389-a2c4-f678af0ebb46",
+              "name": "firstMessage",
+              "value": "=Hi, thanks for calling {{ $env.COMPANY_NAME || 'Acme Co' }} sales, this is Mark, your virtual assistant. What are you looking for today?",
+              "type": "string"
+            },
+            {
+              "id": "e6f55e9a-2678-4720-a517-f3262d890fbc",
+              "name": "systemPrompt",
+              "value": "=You are Mark, an upbeat and consultative sales representative for {{ $env.COMPANY_NAME || 'Acme Co' }}.\nYou are talking to a caller on a live phone call, so:\n- Keep every reply to one or two short sentences. Never use lists, markdown, emojis or URLs.\n- Ask one question at a time and confirm important details back to the caller.\n- If the caller interrupts you, stop, listen, and answer what they just said. Do not repeat yourself.\n\nYour job: qualify the lead. Learn the caller's name, what they need, their timeline and their rough budget, then explain how {{ $env.COMPANY_NAME || 'Acme Co' }} can help. Never quote exact prices, discounts or contract terms. Those come from a human sales specialist.\n\nEscalation rules. Call the transfer_to_human tool immediately when ANY of these happen:\n1. The caller asks for a human, a real person, an agent, a representative or a manager.\n2. The caller is ready to buy, wants a quote, or asks about pricing, discounts or contracts.\n3. The caller is frustrated, or asks something you cannot answer.\nUse department \"sales\" for these. If the caller actually has a problem with an existing order or account, call transfer_to_human with department \"support\" instead.\nAlways pass a one-sentence reason that summarises what the caller wants so the human agent is briefed.\nDo not announce the transfer yourself. The system tells the caller they are being connected.",
+              "type": "string"
+            },
+            {
+              "id": "fdaac477-e512-4ce9-a27e-ee6e335d0d25",
+              "name": "voiceId",
+              "value": "mark",
+              "type": "string"
+            },
+            {
+              "id": "5ccb62de-4596-4116-a7c2-65e30a66661c",
+              "name": "transferMessage",
+              "value": "Absolutely. Please hold for a moment while I connect you with a member of our team.",
+              "type": "string"
+            },
+            {
+              "id": "15252a4c-6ba7-4638-a570-a61abe772ad6",
+              "name": "transferNumber",
+              "value": "={{ $env.HUMAN_SALES_NUMBER }}",
+              "type": "string"
+            },
+            {
+              "id": "f13b9805-46be-400e-ac48-2f2b0c9bfdde",
+              "name": "callSid",
+              "value": "={{ $json.body.CallSid }}",
+              "type": "string"
+            },
+            {
+              "id": "2bf3a0c8-ea2b-4426-a5a5-1f744e7a2618",
+              "name": "accountSid",
+              "value": "={{ $json.body.AccountSid }}",
+              "type": "string"
+            },
+            {
+              "id": "28d38e9c-f4bb-4fa7-a3b6-524270d9095f",
+              "name": "callerNumber",
+              "value": "={{ $json.body.From }}",
+              "type": "string"
+            },
+            {
+              "id": "cbaa1e4e-2d0e-41cb-a591-923185ff408a",
+              "name": "twilioNumber",
+              "value": "={{ $json.body.To }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00a9899d-2721-449c-aae9-bcdcacae86d2",
+      "name": "Configure Agent Parameters (Sales)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response>\n  <Say voice=\"Polly.Joanna-Neural\">Sorry, that is not a valid option.</Say>\n  <Redirect method=\"POST\">twilio-inbound-call</Redirect>\n</Response>",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/xml; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "d74f4ff7-e389-4597-a924-bde163285502",
+      "name": "TwiML Invalid Option",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        520,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.vapi.ai/call",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  phoneNumberId: $env.VAPI_PHONE_NUMBER_ID,\n  phoneCallProviderBypassEnabled: true,\n  customer: { number: $json.callerNumber },\n  assistant: {\n    name: $json.assistantName,\n    firstMessage: $json.firstMessage,\n    firstMessageMode: 'assistant-speaks-first',\n    model: {\n      provider: 'openai',\n      model: 'gpt-4o-mini',\n      temperature: 0.4,\n      messages: [ { role: 'system', content: $json.systemPrompt } ],\n      tools: [\n        {\n          type: 'function',\n          async: true,\n          messages: [ { type: 'request-start', content: $json.transferMessage, blocking: true } ],\n          function: {\n            name: 'transfer_to_human',\n            description: 'Warm-transfer the live call to a human agent. Call this when the caller asks for a person or an escalation rule is met.',\n            strict: true,\n            parameters: {\n              type: 'object',\n              properties: {\n                reason: { type: 'string', description: 'One sentence summarising why the caller needs a human, read aloud to the agent before the call connects.' },\n                department: { type: 'string', enum: [ 'support', 'sales' ], description: 'Which human team should take the call.' }\n              },\n              required: [ 'reason', 'department' ]\n            }\n          },\n          server: Object.assign(\n            {\n              url: ($env.WEBHOOK_URL || (($('Twilio DTMF Receiver').first().json.headers['x-forwarded-proto'] || 'https').split(',')[0] + '://' + $('Twilio DTMF Receiver').first().json.headers.host)).replace(/\\/+$/, '')\n                + '/webhook/vapi-escalation?callSid=' + encodeURIComponent($json.callSid)\n                + '&accountSid=' + encodeURIComponent($json.accountSid)\n                + '&department=' + $json.department,\n              timeoutSeconds: 20\n            },\n            $env.VAPI_TOOL_SECRET ? { headers: { 'x-vapi-secret': $env.VAPI_TOOL_SECRET } } : {}\n          )\n        }\n      ]\n    },\n    voice: { provider: '11labs', voiceId: $json.voiceId, model: 'eleven_flash_v2_5' },\n    transcriber: { provider: 'deepgram', model: 'nova-3', language: 'en' },\n    stopSpeakingPlan: { numWords: 0, voiceSeconds: 0.2, backoffSeconds: 1 },\n    maxDurationSeconds: 900,\n    metadata: { department: $json.department, twilioCallSid: $json.callSid, source: 'n8n-ai-voice-agent-template' }\n  }\n}) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "0232d919-1a83-4d7f-a802-76b3d0f5de05",
+      "name": "Trigger Vapi Inbound Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        400
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2a85e278-b1ea-425d-a0e2-7baa7a488612",
+              "leftValue": "={{ $json.phoneCallProviderDetails?.twiml ?? '' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "80d99b29-253f-42ff-ade0-3e755e8da4e5",
+      "name": "Vapi Returned TwiML?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.phoneCallProviderDetails.twiml }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/xml; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "4e9e05aa-3f57-4668-ac3d-6aed6bef6c2a",
+      "name": "Return Vapi Stream TwiML",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response>\n  <Say voice=\"Polly.Joanna-Neural\">Please hold while we connect you with our team.</Say>\n  <Dial timeout=\"25\">{{ $('Twilio DTMF Receiver').first().json.body.Digits === '2' ? $env.HUMAN_SALES_NUMBER : $env.HUMAN_SUPPORT_NUMBER }}</Dial>\n  <Say voice=\"Polly.Joanna-Neural\">Sorry, nobody is available right now. Please try again later. Goodbye.</Say>\n</Response>",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/xml; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "843a04c4-352a-461a-acf0-92239f099a49",
+      "name": "Fallback: Dial Human Directly",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1300,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-escalation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "82f8ca71-0077-433b-a22c-cd2c9af0d484",
+      "name": "Vapi Tool Escalation Endpoint",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        1100
+      ],
+      "webhookId": "558e706a-5a31-4cbd-ac7d-58ed99d9322b"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalises the Vapi \"tool-calls\" webhook into everything the transfer needs.\n// Vapi docs: https://docs.vapi.ai/tools/custom-tools\nconst req = $input.first().json;\nconst body = req.body || {};\nconst message = body.message || {};\nconst headers = req.headers || {};\nconst query = req.query || {};\n\n// Optional shared secret (set VAPI_TOOL_SECRET to enable it).\nconst expectedSecret = $env.VAPI_TOOL_SECRET || '';\nconst authorized = !expectedSecret || headers['x-vapi-secret'] === expectedSecret;\n\nconst toolCalls = Array.isArray(message.toolCallList) ? message.toolCallList : [];\nconst toolCall = toolCalls.find((tc) => (tc.function?.name || tc.name) === 'transfer_to_human') || toolCalls[0] || {};\nlet args = toolCall.function?.arguments ?? toolCall.arguments ?? {};\nif (typeof args === 'string') {\n  try { args = JSON.parse(args); } catch (e) { args = {}; }\n}\n\nconst metadata = message.assistant?.metadata || message.call?.assistant?.metadata || {};\nconst requested = String(args.department || query.department || metadata.department || 'support').toLowerCase();\nconst department = requested === 'sales' ? 'sales' : 'support';\nconst reason = String(args.reason || 'Caller asked to speak with a person.').replace(/\\s+/g, ' ').trim().slice(0, 300);\nconst callSid = String(query.callSid || metadata.twilioCallSid || message.call?.phoneCallProviderId || '');\nconst accountSid = String(query.accountSid || $env.TWILIO_ACCOUNT_SID || '');\nconst transferNumber = String((department === 'sales' ? $env.HUMAN_SALES_NUMBER : $env.HUMAN_SUPPORT_NUMBER) || '').trim();\n\nlet errorReason = '';\nif (!authorized) errorReason = 'Unauthorized tool call.';\nelse if (!toolCall.id) errorReason = 'No tool call found in the request.';\nelse if (!/^CA[0-9a-fA-F]{32}$/.test(callSid)) errorReason = 'Missing or invalid Twilio Call SID.';\nelse if (!/^AC[0-9a-fA-F]{32}$/.test(accountSid)) errorReason = 'Missing or invalid Twilio Account SID.';\nelse if (!/^\\+[1-9]\\d{6,14}$/.test(transferNumber)) errorReason = 'No valid E.164 transfer number configured for ' + department + '.';\n\n// Twilio fetches this URL when the human answers and plays the briefing to them only.\nconst proto = String(headers['x-forwarded-proto'] || 'https').split(',')[0].trim();\nconst baseUrl = String($env.WEBHOOK_URL || (proto + '://' + headers.host)).replace(/\\/+$/, '');\nconst whisperUrl = baseUrl + '/webhook/transfer-whisper?department=' + department + '&reason=' + encodeURIComponent(reason);\n\nconst xml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');\nconst voice = 'Polly.Joanna-Neural';\nconst transferTwiml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>'\n  + '<Response>'\n  + '<Dial timeout=\"25\">'\n  + '<Number url=\"' + xml(whisperUrl) + '\" method=\"POST\">' + xml(transferNumber) + '</Number>'\n  + '</Dial>'\n  + '<Say voice=\"' + voice + '\">Sorry, nobody from our ' + department + ' team is available right now. Please try again later. Goodbye.</Say>'\n  + '</Response>';\n\nreturn [{\n  json: {\n    valid: !errorReason,\n    authorized,\n    errorReason,\n    toolCallId: toolCall.id || '',\n    department,\n    reason,\n    callSid,\n    accountSid,\n    transferNumber,\n    transferTwiml,\n  },\n}];"
+      },
+      "id": "c96ce24c-a29b-48f6-a469-6fe53d71e3f7",
+      "name": "Parse Transfer Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        1100
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7839707c-dd40-4d33-aeb0-ecd0eba7ec81",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "22b667fa-943b-44f6-a2dd-d197b4e54587",
+      "name": "Transfer Request Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        1100
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ results: [ { toolCallId: $json.toolCallId, result: 'Transfer to the ' + $json.department + ' team has started. The caller is being connected now.' } ] }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "5218078e-1e39-4d1b-aa1a-10e7aac15110",
+      "name": "Acknowledge Vapi Tool Call",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "seconds"
+      },
+      "id": "6e54f0d2-e1fe-45b9-a2e1-cacaa47833a4",
+      "name": "Wait For Hold Message",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        1000
+      ],
+      "webhookId": "556ecf43-cb2c-4efc-a531-6028f9b193c4"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.twilio.com/2010-04-01/Accounts/{{ $json.accountSid }}/Calls/{{ $json.callSid }}.json",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twilioApi",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Twiml",
+              "value": "={{ $json.transferTwiml }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "8f701677-07bd-453c-af5c-4651a2489488",
+      "name": "Execute Twilio Call Transfer",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1300,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ results: [ { toolCallId: $json.toolCallId, error: $json.errorReason } ] }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "responseCode": "={{ $json.authorized ? 200 : 401 }}"
+        }
+      },
+      "id": "dc916cab-e8c7-483f-ac06-95f8b2a859bc",
+      "name": "Reject Transfer Request",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        1200
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "transfer-whisper",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "e0e1f94e-4c34-4b7c-af22-1e9a7ce878d6",
+      "name": "Transfer Whisper Endpoint",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        1440
+      ],
+      "webhookId": "e55b78ff-52af-40e3-a5f1-eafd3acf7f4e"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response>\n  <Say voice=\"Polly.Joanna-Neural\">Incoming {{ $json.query.department === 'sales' ? 'sales' : 'support' }} transfer from the A I assistant. Reason: {{ String($json.query.reason || 'not specified').slice(0, 300).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }}. Connecting you now.</Say>\n</Response>",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/xml; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "58ea326b-9155-4d0a-a97f-51ca53be65e1",
+      "name": "TwiML Agent Whisper",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        260,
+        1440
+      ]
+    }
+  ],
+  "connections": {
+    "Twilio Inbound Call": {
+      "main": [
+        [
+          {
+            "node": "TwiML Gather Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Twilio DTMF Receiver": {
+      "main": [
+        [
+          {
+            "node": "Route Department",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Department": {
+      "main": [
+        [
+          {
+            "node": "Configure Agent Parameters (Support)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Configure Agent Parameters (Sales)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "TwiML Invalid Option",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Agent Parameters (Support)": {
+      "main": [
+        [
+          {
+            "node": "Trigger Vapi Inbound Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Agent Parameters (Sales)": {
+      "main": [
+        [
+          {
+            "node": "Trigger Vapi Inbound Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Vapi Inbound Call": {
+      "main": [
+        [
+          {
+            "node": "Vapi Returned TwiML?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fallback: Dial Human Directly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vapi Returned TwiML?": {
+      "main": [
+        [
+          {
+            "node": "Return Vapi Stream TwiML",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fallback: Dial Human Directly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vapi Tool Escalation Endpoint": {
+      "main": [
+        [
+          {
+            "node": "Parse Transfer Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Transfer Request": {
+      "main": [
+        [
+          {
+            "node": "Transfer Request Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transfer Request Valid?": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge Vapi Tool Call",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reject Transfer Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Acknowledge Vapi Tool Call": {
+      "main": [
+        [
+          {
+            "node": "Wait For Hold Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait For Hold Message": {
+      "main": [
+        [
+          {
+            "node": "Execute Twilio Call Transfer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transfer Whisper Endpoint": {
+      "main": [
+        [
+          {
+            "node": "TwiML Agent Whisper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
