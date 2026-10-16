@@ -5,6 +5,7 @@ A reusable, client-agnostic n8n workflow for agencies. It answers inbound phone 
 | File | What it is |
 | --- | --- |
 | [`n8n_workflow_template.json`](n8n_workflow_template.json) | The workflow. Import it into n8n (**Workflows → Import from File**). |
+| [`n8n_workflow_vapi_only.json`](n8n_workflow_vapi_only.json) | **No Twilio account? Use this one.** It runs on a free Vapi number. Setup: [`VAPI_ONLY_SETUP.md`](VAPI_ONLY_SETUP.md). |
 | [`tests/`](tests/) | A connectivity checker and an end-to-end test harness with mock Twilio and Vapi APIs (see [Testing](#testing)). |
 
 ---

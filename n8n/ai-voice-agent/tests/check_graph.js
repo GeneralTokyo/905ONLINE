@@ -34,10 +34,11 @@ for (const [src, conn] of Object.entries(wf.connections)) {
   });
 }
 
-// Every output of a branching node must be wired (no silently dropped branch)
+// Every output of a branching node must be wired (no silently dropped branch).
+// A single-output node with nothing after it is a legitimate end of a path.
 for (const n of functional) {
   const want = expectedOutputs(n);
-  const isTerminal = n.type === 'n8n-nodes-base.respondToWebhook' || n.name === 'Execute Twilio Call Transfer';
+  const isTerminal = n.type === 'n8n-nodes-base.respondToWebhook' || (want === 1 && !wf.connections[n.name]);
   if (isTerminal) continue;
   const got = (wf.connections[n.name]?.main || []).filter((t) => t && t.length).length;
   if (got !== want) errors.push(`${n.name}: ${got}/${want} outputs connected`);

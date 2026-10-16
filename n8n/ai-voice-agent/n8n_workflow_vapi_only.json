@@ -1,0 +1,617 @@
+{
+  "name": "AI Voice Agent - Vapi Only (Free Vapi Number + Human Transfer)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## AI Voice Agent (Vapi-only, no Twilio)\nYour free **Vapi phone number** sends every call event to **Vapi Server URL**.\n1. **assistant-request** (phone rings): n8n builds the AI receptionist and returns it to Vapi. The caller presses 1 or 2 (or just says \"support\" or \"sales\").\n2. **transfer-update**: Vapi warm-transfers the caller to your human number and n8n logs it.\n3. **end-of-call-report**: n8n receives the summary and transcript (connect a CRM or Google Sheet here).",
+        "height": 280,
+        "width": 1560,
+        "color": 7
+      },
+      "id": "c0127bbb-cf3b-49fb-a523-3ee147fd30b1",
+      "name": "Note: How it works",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Edit only the Settings node\nCompany name, agent name, voice, greeting, the two playbooks, the two human phone numbers (E.164 like `+14165550111`), the transfer mode and an optional secret.",
+        "height": 180,
+        "width": 520,
+        "color": 4
+      },
+      "id": "10b430e3-3da0-44ac-a771-2096a59c4cb7",
+      "name": "Note: Settings",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-server",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a3c352f0-c63c-4446-a449-543a4bb287d5",
+      "name": "Vapi Server URL",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        100
+      ],
+      "webhookId": "6c2ba287-0407-4f8a-a473-b1a63be6b569"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7016c0c0-2b2e-4022-ad0b-53136fec54f8",
+              "name": "companyName",
+              "value": "Acme Co",
+              "type": "string"
+            },
+            {
+              "id": "8f85b036-4db8-4c10-a07a-cd191cc5306b",
+              "name": "agentName",
+              "value": "Sarah",
+              "type": "string"
+            },
+            {
+              "id": "7e6900f3-54ff-429e-a920-0907aee88068",
+              "name": "voiceId",
+              "value": "sarah",
+              "type": "string"
+            },
+            {
+              "id": "42269a3f-4232-4249-aa89-91a5dacda51e",
+              "name": "supportNumber",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "e7f922e7-9e3e-40ac-a49d-4e24da1104c2",
+              "name": "salesNumber",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "ea2abf24-4cec-48fa-a904-e052889e2a75",
+              "name": "transferMode",
+              "value": "warm-transfer-say-summary",
+              "type": "string"
+            },
+            {
+              "id": "a7e13c25-59c9-41f0-aa00-8d24dcca8965",
+              "name": "serverSecret",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "9364da25-462a-4c98-a303-d9e2f8c6aa0e",
+              "name": "greeting",
+              "value": "Thanks for calling {company}, this is {agent}, your virtual assistant. For help with an existing order or account, press 1 or say support. For sales and new quotes, press 2 or say sales.",
+              "type": "string"
+            },
+            {
+              "id": "05913979-c292-449d-ac75-8ff613b26f57",
+              "name": "transferMessage",
+              "value": "Absolutely. Please hold for a moment while I connect you with a member of our team.",
+              "type": "string"
+            },
+            {
+              "id": "db228b31-14d1-47fc-aec6-e74bcc6a2f33",
+              "name": "supportPlaybook",
+              "value": "SUPPORT mode. Help existing customers. Get their name and a callback number, understand the issue, and help with basic questions about account access, billing, order status and service problems. Never invent policies, prices or account details. If you do not know, say so.\nTransfer to the support team immediately when the caller asks for a human, a real person, an agent or a manager; when they are angry or frustrated or have repeated the same problem twice; or when the request involves refunds, cancellations, legal or safety issues, or anything you cannot resolve.",
+              "type": "string"
+            },
+            {
+              "id": "e6ef665e-ac43-4b38-a8f6-9d62bd95e5a6",
+              "name": "salesPlaybook",
+              "value": "SALES mode. Qualify the lead. Learn the caller's name, what they need, their timeline and their rough budget, then explain how {company} can help. Never quote exact prices, discounts or contract terms. Those come from a human sales specialist.\nTransfer to the sales team immediately when the caller asks for a human, a real person, an agent or a manager; when they are ready to buy or want a quote, pricing, discounts or contract details; or when they are frustrated or ask something you cannot answer.",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "57896f80-36af-4270-a705-2c97cab4e1bf",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bff293fb-8eda-43d7-a3be-09fb3f131c48",
+              "leftValue": "={{ !$json.serverSecret || $json.query.key === $json.serverSecret || $json.headers['x-vapi-secret'] === $json.serverSecret }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5f6fa2f7-cdb8-454c-a25a-4b3ab1ec29eb",
+      "name": "Authorized?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ error: 'Unauthorized' }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "responseCode": 401
+        }
+      },
+      "id": "acb8713d-f139-4f7c-a0f1-1978dea2a359",
+      "name": "Reject Unauthorized",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6124368a-d13e-47fb-a225-cc03dfa14363",
+                    "leftValue": "={{ String($json.body?.message?.type ?? '') }}",
+                    "rightValue": "assistant-request",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "assistant-request"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8d9f45cd-b9d1-48dc-aa08-3d29c626e33f",
+                    "leftValue": "={{ String($json.body?.message?.type ?? '') }}",
+                    "rightValue": "transfer-update",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "transfer-update"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1a6a588a-3d43-422a-a79f-5d81ebab5e98",
+                    "leftValue": "={{ String($json.body?.message?.type ?? '') }}",
+                    "rightValue": "end-of-call-report",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "end-of-call-report"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "Other Event"
+        }
+      },
+      "id": "37902e8f-b873-4668-a479-22db6948ce47",
+      "name": "Route Vapi Event",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        660,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Assembles the transient Vapi assistant from the Settings node.\n// Vapi \"assistant-request\" docs: https://docs.vapi.ai/server-url/events\nconst cfg = $input.first().json;\nconst message = cfg.body?.message || {};\nconst fill = (text) => String(text || '')\n  .replaceAll('{company}', cfg.companyName || 'our company')\n  .replaceAll('{agent}', cfg.agentName || 'Sarah');\n\n// Phone numbers: keep digits and \"+\", then require E.164 (+ country code + number).\nconst e164 = (n) => {\n  const cleaned = String(n || '').replace(/[^\\d+]/g, '');\n  return /^\\+[1-9]\\d{6,14}$/.test(cleaned) ? cleaned : '';\n};\nconst modes = [\n  'blind-transfer',\n  'warm-transfer-say-message',\n  'warm-transfer-say-summary',\n  'warm-transfer-wait-for-operator-to-speak-first-and-then-say-message',\n  'warm-transfer-wait-for-operator-to-speak-first-and-then-say-summary',\n];\nconst mode = modes.includes(cfg.transferMode) ? cfg.transferMode : 'warm-transfer-say-summary';\n\nconst destination = (number, team, description) => {\n  const transferPlan = { mode };\n  if (mode.endsWith('say-message')) transferPlan.message = 'Incoming ' + team + ' call transferred from the AI assistant. Connecting you now.';\n  return {\n    type: 'number',\n    number,\n    description,\n    message: fill(cfg.transferMessage),\n    transferPlan,\n  };\n};\n\nconst supportNumber = e164(cfg.supportNumber);\nconst salesNumber = e164(cfg.salesNumber);\nconst destinations = [];\nif (supportNumber) destinations.push(destination(supportNumber, 'support', 'Support team: existing customers, problems with an order or account, billing, refunds, cancellations, and anyone in support mode who asks for a person.'));\nif (salesNumber) destinations.push(destination(salesNumber, 'sales', 'Sales team: new customers, quotes, pricing, discounts, upgrades, and anyone in sales mode who asks for a person.'));\n\nconst transferRules = destinations.length\n  ? 'Transfers: use the transferCall tool. Pick the support destination for support issues and the sales destination for buying or pricing, whatever mode you are in. Before transferring, confirm in one sentence what the caller needs so the team gets a good summary. Do not say anything after calling the tool.'\n  : 'Transfers are not available right now. If the caller wants a person, take their name, callback number and reason, and promise a call back within one business day.';\n\nconst systemPrompt = fill([\n  'You are {agent}, the friendly virtual receptionist for {company}, answering a live phone call.',\n  'Style: keep every reply to one or two short sentences. Never use lists, markdown, emojis or URLs. Ask one question at a time. If the caller interrupts you, stop, listen, and answer what they just said. Do not repeat yourself.',\n  'Routing: your greeting asks the caller to press 1 or say support, or press 2 or say sales. A keypad press reaches you as a message containing just the digit. 1 or support means SUPPORT mode. 2 or sales means SALES mode. If the caller presses another key, say it is not an option and repeat the two choices. If they just start describing their need, pick the mode yourself.',\n  cfg.supportPlaybook,\n  cfg.salesPlaybook,\n  transferRules,\n].join('\\n\\n'));\n\nconst tools = destinations.length ? [{ type: 'transferCall', destinations }] : [];\n\nconst assistant = {\n  name: 'Front Desk (n8n template)',\n  firstMessage: fill(cfg.greeting),\n  firstMessageMode: 'assistant-speaks-first',\n  keypadInputPlan: { enabled: true, timeoutSeconds: 2 },\n  model: {\n    provider: 'openai',\n    model: 'gpt-4o-mini',\n    temperature: 0.4,\n    messages: [{ role: 'system', content: systemPrompt }],\n    ...(tools.length ? { tools } : {}),\n  },\n  voice: { provider: '11labs', voiceId: cfg.voiceId || 'sarah', model: 'eleven_flash_v2_5' },\n  transcriber: { provider: 'deepgram', model: 'nova-3', language: 'en' },\n  stopSpeakingPlan: { numWords: 0, voiceSeconds: 0.2, backoffSeconds: 1 },\n  maxDurationSeconds: 900,\n  serverMessages: ['transfer-update', 'end-of-call-report'],\n  metadata: { source: 'n8n-ai-voice-agent-vapi-only' },\n};\n\nreturn [{\n  json: {\n    callerNumber: message.call?.customer?.number || message.customer?.number || 'unknown',\n    transfersEnabled: destinations.length > 0,\n    supportNumber: supportNumber || 'not set',\n    salesNumber: salesNumber || 'not set',\n    transferMode: mode,\n    response: { assistant },\n  },\n}];"
+      },
+      "id": "48a1242c-5144-465e-a038-81e59205a68a",
+      "name": "Build Vapi Assistant",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "a38127e2-e945-4a32-aabb-4a497fa2ba69",
+      "name": "Return Assistant to Vapi",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ received: true }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "67b6081d-543f-485c-a357-f319129658d0",
+      "name": "Acknowledge Transfer Update",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10cb05a5-5d92-4f67-a991-61c8f0919201",
+              "name": "event",
+              "value": "transfer",
+              "type": "string"
+            },
+            {
+              "id": "cae2e5f4-9361-4c1c-a218-25ae309a3e0f",
+              "name": "transferredTo",
+              "value": "={{ $json.body.message.destination?.number ?? 'unknown' }}",
+              "type": "string"
+            },
+            {
+              "id": "54b8e87f-5009-4147-a486-eb787a1057a2",
+              "name": "callerNumber",
+              "value": "={{ $json.body.message.call?.customer?.number ?? $json.body.message.customer?.number ?? 'unknown' }}",
+              "type": "string"
+            },
+            {
+              "id": "5b9e9347-3b48-4d10-ab37-4433e9a5f98a",
+              "name": "vapiCallId",
+              "value": "={{ $json.body.message.call?.id ?? '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b5e5d99f-e0b7-4d30-a047-48d75c5a43d7",
+      "name": "Transfer Details",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ received: true }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "717ba80b-8d17-4b9e-aba0-d34323e81c5f",
+      "name": "Acknowledge Call Report",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10cb05a5-5d92-4f67-a991-61c8f0919201",
+              "name": "event",
+              "value": "call-ended",
+              "type": "string"
+            },
+            {
+              "id": "da60bcc0-6ae2-43d5-a204-50719a408ecc",
+              "name": "callerNumber",
+              "value": "={{ $json.body.message.call?.customer?.number ?? $json.body.message.customer?.number ?? 'unknown' }}",
+              "type": "string"
+            },
+            {
+              "id": "08c9ae0e-3c9b-4f09-a6d4-213896afbf66",
+              "name": "endedReason",
+              "value": "={{ $json.body.message.endedReason ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "576e2a9a-da5d-49bf-aef8-f819545d1924",
+              "name": "summary",
+              "value": "={{ $json.body.message.analysis?.summary ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "80375782-cab5-4753-aba3-6e4dcf3a5a2e",
+              "name": "transcript",
+              "value": "={{ $json.body.message.artifact?.transcript ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "e71fc91e-2001-43c4-a49a-9725073f8965",
+              "name": "recordingUrl",
+              "value": "={{ $json.body.message.artifact?.recordingUrl ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "d02c1a6b-cad4-432f-aa0b-668e0e0447b6",
+              "name": "costUsd",
+              "value": "={{ $json.body.message.cost ?? 0 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f9a5d13a-5bdf-425d-acb7-aec10079925f",
+      "name": "Call Report",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ received: true }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "8d986228-b453-4074-ad2b-0a6c05073708",
+      "name": "Acknowledge Other Event",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        360
+      ]
+    }
+  ],
+  "connections": {
+    "Vapi Server URL": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Authorized?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Authorized?": {
+      "main": [
+        [
+          {
+            "node": "Route Vapi Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reject Unauthorized",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Vapi Event": {
+      "main": [
+        [
+          {
+            "node": "Build Vapi Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Acknowledge Transfer Update",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Acknowledge Call Report",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Acknowledge Other Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Vapi Assistant": {
+      "main": [
+        [
+          {
+            "node": "Return Assistant to Vapi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Acknowledge Transfer Update": {
+      "main": [
+        [
+          {
+            "node": "Transfer Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Acknowledge Call Report": {
+      "main": [
+        [
+          {
+            "node": "Call Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
